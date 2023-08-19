@@ -1,0 +1,5 @@
+name: SlackChannelSRV
+version: '${project.version}'
+main: link.niwatori.slackchannelsrv.SlackChannelSRV
+api-version: '1.20'
+authors: [t-hayashi]
