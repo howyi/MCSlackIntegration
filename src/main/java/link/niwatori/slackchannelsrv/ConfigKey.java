@@ -18,7 +18,9 @@ public enum ConfigKey {
     MESSAGE_PLAYER_CHAT_NAME("Message.PlayerChatName"),
     SLACK_CHANNEL_TOPIC_ENABLED("StatusChannelTopic.Enabled"),
     SLACK_CHANNEL_TOPIC_ONLINE("StatusChannelTopic.Online"),
-    SLACK_CHANNEL_TOPIC_OFFLINE("StatusChannelTopic.Offline");
+    SLACK_CHANNEL_TOPIC_OFFLINE("StatusChannelTopic.Offline"),
+    APP_HOME_ONLINE_USER_COUNT("AppHome.OnlineUserCount"),
+    APP_HOME_ONLINE_USER_LIST("AppHome.OnlineUserList");
 
     private final String key;
 
