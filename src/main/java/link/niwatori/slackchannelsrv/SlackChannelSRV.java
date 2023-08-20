@@ -1,13 +1,11 @@
 package link.niwatori.slackchannelsrv;
 
 import link.niwatori.slackchannelsrv.message.Info;
-import link.niwatori.slackchannelsrv.message.Message;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.MessageFormat;
 import java.util.Objects;
-
 
 public final class SlackChannelSRV extends JavaPlugin {
 
@@ -35,6 +33,9 @@ public final class SlackChannelSRV extends JavaPlugin {
             Info message = new Info(this.config, serverStartMessage);
             this.sender.sendMessage(message);
         }
+
+        SlackEventListener slackEventListener = new SlackEventListener(this.config, this.sender);
+        slackEventListener.connect();
     }
 
     @Override
