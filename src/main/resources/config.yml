@@ -16,13 +16,18 @@ Message:
   # If message is set to an empty string, no notification will be sent.
   ServerStart: "server start"
   ServerEnd: "server end"
+  # ex.{0}: hoyash
   PlayerJoin: "{0} joined the game"
+  # ex.{0}: hoyash
   PlayerQuit: "{0} left the game"
+  # ex.{0}: hoyash was shot by Skeleton
   PlayerDeath: "{0}"
+  # ex.{0}: hello
   PlayerChat: "{0}"
+  # ex.{0}: hoyash
   PlayerChatName: "{0}"
 
 StatusChannelTopic:
-  Enabled: true
+  Enabled: false
   Online: "🟢 online: {0}"
   Offline: "🔴 offline"
