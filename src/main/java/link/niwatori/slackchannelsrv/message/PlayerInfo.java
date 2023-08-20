@@ -24,6 +24,11 @@ public class PlayerInfo extends Message {
     }
 
     @Override
+    public String getText() {
+        return this.message;
+    }
+
+    @Override
     public List<LayoutBlock> getBlocks() {
         return Blocks.asBlocks(
                 Blocks.context(context -> context
@@ -35,7 +40,7 @@ public class PlayerInfo extends Message {
                                         .build(),
                                 MarkdownTextObject
                                         .builder()
-                                        .text(this.message)
+                                        .text(this.getText())
                                         .build()
                         ))
                 )
