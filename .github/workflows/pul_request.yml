@@ -17,4 +17,4 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml -Dversion=0.0
+        run: mvn -B package --file pom.xml -Drevision=0.0
