@@ -1,0 +1,32 @@
+name: Release with Maven
+
+on:
+  push:
+    tags:
+      - "[0-9].[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -Drevision=${{github.ref_name}}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./target/SlackChannelSRV-${{github.ref_name}}.jar
