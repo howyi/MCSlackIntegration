@@ -22,13 +22,18 @@ public class Info extends Message {
     }
 
     @Override
+    public String getText() {
+        return this.message;
+    }
+
+    @Override
     public List<LayoutBlock> getBlocks() {
         return Blocks.asBlocks(
                 Blocks.context(context -> context
                         .elements(List.of(
                                 MarkdownTextObject
                                         .builder()
-                                        .text(this.message)
+                                        .text(this.getText())
                                         .build()
                         ))
                 )

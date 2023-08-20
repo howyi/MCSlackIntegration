@@ -33,11 +33,16 @@ public class InGameChat extends Message {
     }
 
     @Override
+    public String getText() {
+        return this.event.getMessage();
+    }
+
+    @Override
     public List<LayoutBlock> getBlocks() {
         String messageFormat = config.getString(ConfigKey.MESSAGE_PLAYER_CHAT.getKey(), "{0}");
         return Blocks.asBlocks(
                 Blocks.section(section -> section.text(BlockCompositions.plainText(
-                        MessageFormat.format(messageFormat, event.getMessage())
+                        MessageFormat.format(messageFormat, this.getText())
                 )))
         );
     }
