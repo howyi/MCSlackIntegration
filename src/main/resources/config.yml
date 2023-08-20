@@ -1,9 +1,17 @@
 # https://api.slack.com/tutorials/tracks/getting-a-token
 # REQUIRED PERMISSIONS:
+#  channels:history
+#  users:read
 #  channels:write.topic
 #  chat:write
 #  chat:write.customize
 SlackToken: "xoxb-xxxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx"
+# Slack to minecraft
+# Socket Mode Token
+# REQUIRED PERMISSIONS:
+#  connections:write
+# Event Subscriptions: true
+SlackSocketToken: "xapp-xxxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx"
 SlackBotName: "SlackChannelSRV"
 SlackBotIconEmoji: ":pick:"
 SlackBotIconUrl: ""
@@ -26,6 +34,9 @@ Message:
   PlayerChat: "{0}"
   # ex.{0}: hoyash
   PlayerChatName: "{0}"
+  # ex.{0}: t-hayashi
+  # ex.{1}: hello from slack
+  FromSlackChat: "#[{0}] {1}"
 
 StatusChannelTopic:
   Enabled: false

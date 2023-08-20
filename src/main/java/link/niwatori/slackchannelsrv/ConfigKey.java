@@ -3,6 +3,7 @@ package link.niwatori.slackchannelsrv;
 public enum ConfigKey {
 
     SLACK_TOKEN("SlackToken"),
+    SLACK_SOCKET_TOKEN("SlackSocketToken"),
     SLACK_BOT_NAME("SlackBotName"),
     SLACK_BOT_ICON_EMOJI("SlackBotIconEmoji"),
     SLACK_BOT_ICON_URL("SlackBotIconUrl"),
@@ -13,6 +14,7 @@ public enum ConfigKey {
     MESSAGE_PLAYER_QUIT("Message.PlayerQuit"),
     MESSAGE_PLAYER_DEATH("Message.PlayerDeath"),
     MESSAGE_PLAYER_CHAT("Message.PlayerChat"),
+    MESSAGE_FROM_SLACK_CHAT("Message.FromSlackChat"),
     MESSAGE_PLAYER_CHAT_NAME("Message.PlayerChatName"),
     SLACK_CHANNEL_TOPIC_ENABLED("StatusChannelTopic.Enabled"),
     SLACK_CHANNEL_TOPIC_ONLINE("StatusChannelTopic.Online"),
