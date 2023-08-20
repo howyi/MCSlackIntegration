@@ -1,0 +1,28 @@
+# https://api.slack.com/tutorials/tracks/getting-a-token
+# REQUIRED PERMISSIONS:
+#  channels:write.topic
+#  chat:write
+#  chat:write.customize
+SlackToken: "xoxb-xxxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx"
+SlackBotName: "SlackChannelSRV"
+SlackBotIconEmoji: ":pick:"
+SlackBotIconUrl: ""
+
+# https://help.socialintents.com/article/148-how-to-find-your-slack-team-id-and-slack-channel-id
+# *Bot must be invited to the channel to be notified*
+SlackChannelId: "C05NP1XXXXX"
+
+Message:
+  # If message is set to an empty string, no notification will be sent.
+  ServerStart: "server start"
+  ServerEnd: "server end"
+  PlayerJoin: "{0} joined the game"
+  PlayerQuit: "{0} left the game"
+  PlayerDeath: "{0}"
+  PlayerChat: "{0}"
+  PlayerChatName: "{0}"
+
+StatusChannelTopic:
+  Enabled: true
+  Online: "🟢 online: {0}"
+  Offline: "🔴 offline"
