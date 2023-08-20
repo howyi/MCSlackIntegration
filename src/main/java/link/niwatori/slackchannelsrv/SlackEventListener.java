@@ -101,6 +101,9 @@ public class SlackEventListener {
             return;
         }
         String name = this.sender.getUserName(event.getUser());
+        if (Objects.equals(name, "")) {
+            return;
+        }
         String message = MessageFormat.format(
                 config.getString(ConfigKey.MESSAGE_FROM_SLACK_CHAT.getKey(), ""),
                 name,
