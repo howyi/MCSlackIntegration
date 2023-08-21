@@ -1,12 +1,12 @@
 # slack app parameters
-# read the plugin document: https://howyi.github.io/SlackChannelSRV/
-SlackToken: "xoxb-xxxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx"
-SlackSocketToken: "xapp-xxxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx"
-SlackChannelId: "C05NP1XXXXX"
+# read the plugin document: https://howyi.github.io/SlackIntegration/
+SlackToken: ""
+SlackSocketToken: ""
+SlackChannelId: ""
 
-# User name settings for posting info messages to slack
+# Username settings for posting info messages to slack
 # If IconUrl is set, it will be used in preference to IconEmoji
-SlackBotName: "SlackChannelSRV"
+SlackBotName: "Minecraft server"
 SlackBotIconEmoji: ":pick:"
 SlackBotIconUrl: ""
 

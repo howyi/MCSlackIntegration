@@ -14,9 +14,9 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
 ```json title="App Manifest"
 {
   "display_information": {
-    "name": "SlackChannelSRV",
-    "description": "SlackChannelSRV",
-    "background_color": "#485659"
+    "name": "Minecraft server",
+    "description": "Minecraft server with SlackIntegration plugin",
+    "background_color": "#944b16"
   },
   "features": {
     "app_home": {
@@ -25,7 +25,7 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
       "messages_tab_read_only_enabled": true
     },
     "bot_user": {
-      "display_name": "SlackChannelSRV",
+      "display_name": "Minecraft server",
       "always_online": false
     }
   },
@@ -92,5 +92,5 @@ paste to `SlackSocketToken` in `config.yml`
 paste to `SlackChannelId` in `config.yml`
 
 ## invite bot to Slack Channel
-!!! note "On the slack channel you want to connect to, type `/invite` and select `"Add apps to this channel"` add `SlackChannelSRV`."
+!!! note "On the slack channel you want to connect to, type `/invite` and select `"Add apps to this channel"` add `SlackIntegration`."
     ![invite_bot_to_channel](images/invite_bot_to_channel.png)

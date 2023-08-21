@@ -1,9 +1,9 @@
-package link.niwatori.slackchannelsrv.message;
+package link.niwatori.slackintegration.message;
 
 import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.BlockCompositions;
-import link.niwatori.slackchannelsrv.ConfigKey;
+import link.niwatori.slackintegration.ConfigKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 

@@ -1,4 +1,4 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.AppConfig;
@@ -10,7 +10,7 @@ import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
 import com.slack.api.model.block.element.ImageElement;
 import com.slack.api.model.event.*;
-import link.niwatori.slackchannelsrv.message.Message;
+import link.niwatori.slackintegration.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import com.slack.api.model.view.View;

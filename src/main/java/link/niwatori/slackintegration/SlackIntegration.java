@@ -1,6 +1,6 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
-import link.niwatori.slackchannelsrv.message.Info;
+import link.niwatori.slackintegration.message.Info;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -8,7 +8,7 @@ import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public final class SlackChannelSRV extends JavaPlugin {
+public final class SlackIntegration extends JavaPlugin {
 
     SlackSender sender;
     SlackEventListener slackEventListener;

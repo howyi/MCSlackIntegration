@@ -4,9 +4,10 @@
 </div>
 
 ## links
-[Releases](https://github.com/howyi/SlackChannelSRV/releases)  
-[Source Code](https://github.com/howyi/SlackChannelSRV)  
-[Issue Tracker](https://github.com/howyi/SlackChannelSRV/issues)  
+[spigot](https://www.spigotmc.org/resources/slack-integration.112181/)  
+[Releases](https://github.com/howyi/SlackIntegration/releases)  
+[Source Code](https://github.com/howyi/SlackIntegration)  
+[Issue Tracker](https://github.com/howyi/SlackIntegration/issues)  
 
 ## support
 minecraft: 1.20 ~  bukkit, spigot

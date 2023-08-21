@@ -1,7 +1,7 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
-import link.niwatori.slackchannelsrv.message.InGameChat;
-import link.niwatori.slackchannelsrv.message.PlayerInfo;
+import link.niwatori.slackintegration.message.InGameChat;
+import link.niwatori.slackintegration.message.PlayerInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;

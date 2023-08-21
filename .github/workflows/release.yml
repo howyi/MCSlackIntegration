@@ -29,4 +29,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ./target/SlackChannelSRV-${{github.ref_name}}.jar
+          files: ./target/SlackIntegration-${{github.ref_name}}.jar

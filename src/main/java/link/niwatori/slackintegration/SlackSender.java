@@ -1,4 +1,4 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
@@ -13,7 +13,7 @@ import com.slack.api.methods.response.reactions.ReactionsListResponse;
 import com.slack.api.methods.response.users.UsersInfoResponse;
 import com.slack.api.methods.response.users.profile.UsersProfileSetResponse;
 import com.slack.api.model.User;
-import link.niwatori.slackchannelsrv.message.Message;
+import link.niwatori.slackintegration.message.Message;
 
 import java.io.IOException;
 import java.util.Objects;
