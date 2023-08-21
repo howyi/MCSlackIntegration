@@ -1,0 +1,30 @@
+site_name: SlackChannelSRV wiki
+
+nav:
+  - Home: index.md
+  - Installation:
+      - install_to_server.md
+      - slack_app.md
+  - Configs: config.md
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+  palette:
+    primary: black
+    scheme: default
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
