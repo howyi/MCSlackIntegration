@@ -1,4 +1,4 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.AppConfig;
@@ -10,7 +10,7 @@ import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
 import com.slack.api.model.block.element.ImageElement;
 import com.slack.api.model.event.*;
-import link.niwatori.slackchannelsrv.message.Message;
+import link.niwatori.slackintegration.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import com.slack.api.model.view.View;
@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 public class SlackEventListener {
     SlackSender sender;
     FileConfiguration config;
+    SocketModeApp socketModeApp;
 
     public SlackEventListener(
             FileConfiguration config,
@@ -81,13 +82,16 @@ public class SlackEventListener {
         app.event(MessageChangedEvent.class, (payload, ctx) -> ctx.ack());
         app.event(MessageThreadBroadcastEvent.class, (payload, ctx) -> ctx.ack());
 
-        SocketModeApp socketModeApp = null;
         try {
-            socketModeApp = new SocketModeApp(appToken, app);
-            socketModeApp.startAsync();
+            this.socketModeApp = new SocketModeApp(appToken, app);
+            this.socketModeApp.startAsync();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void disconnect() throws Exception {
+        this.socketModeApp.close();
     }
 
     public void onMessage(MessageEvent event) throws SlackApiException, IOException {
@@ -115,7 +119,7 @@ public class SlackEventListener {
     public View onHomeOpen(AppHomeOpenedEvent event) throws SlackApiException, IOException {
         List<LayoutBlock> blocks = new ArrayList<>();
 
-        String  onlineUserCount = config.getString(ConfigKey.APP_HOME_ONLINE_USER_COUNT.getKey(), "");
+        String onlineUserCount = config.getString(ConfigKey.APP_HOME_ONLINE_USER_COUNT.getKey(), "");
         if (!onlineUserCount.equals("")) {
             String text = MessageFormat.format(onlineUserCount, Bukkit.getOnlinePlayers().size(), Bukkit.getServer().getMaxPlayers());
             blocks.add(section(section -> section.text(markdownText(mt -> mt.text(text)))));

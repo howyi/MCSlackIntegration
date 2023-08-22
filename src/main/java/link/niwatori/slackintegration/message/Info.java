@@ -1,4 +1,4 @@
-package link.niwatori.slackchannelsrv.message;
+package link.niwatori.slackintegration.message;
 
 import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
@@ -9,18 +9,16 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class PlayerInfo extends Message {
-    private final Player player;
+public class Info extends Message {
+
     private final String message;
 
-    public PlayerInfo(
+    public Info(
             FileConfiguration config,
-            Player player,
-            String format
+            String message
     ) {
         super(config);
-        this.player = player;
-        this.message = format;
+        this.message = message;
     }
 
     @Override
@@ -33,11 +31,6 @@ public class PlayerInfo extends Message {
         return Blocks.asBlocks(
                 Blocks.context(context -> context
                         .elements(List.of(
-                                ImageElement
-                                        .builder()
-                                        .imageUrl(getPlayerIconUrl(player))
-                                        .altText(player.getDisplayName())
-                                        .build(),
                                 MarkdownTextObject
                                         .builder()
                                         .text(this.getText())

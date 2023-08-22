@@ -1,5 +1,5 @@
-name: SlackChannelSRV
+name: SlackIntegration
 version: '${project.version}'
-main: link.niwatori.slackchannelsrv.SlackChannelSRV
+main: link.niwatori.slackintegration.SlackIntegration
 api-version: '1.20'
 authors: [t-hayashi]

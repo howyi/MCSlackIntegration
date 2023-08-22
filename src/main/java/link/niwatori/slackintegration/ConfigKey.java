@@ -1,4 +1,4 @@
-package link.niwatori.slackchannelsrv;
+package link.niwatori.slackintegration;
 
 public enum ConfigKey {
 

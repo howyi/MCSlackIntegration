@@ -1,7 +1,7 @@
-package link.niwatori.slackchannelsrv.message;
+package link.niwatori.slackintegration.message;
 
 import com.slack.api.model.block.LayoutBlock;
-import link.niwatori.slackchannelsrv.ConfigKey;
+import link.niwatori.slackintegration.ConfigKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
