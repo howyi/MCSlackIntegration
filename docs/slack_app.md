@@ -15,8 +15,8 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
 {
   "display_information": {
     "name": "Minecraft server",
-    "description": "Minecraft server with SlackIntegration plugin",
-    "background_color": "#944b16"
+    "description": "with Slack Integration plugin",
+    "background_color": "#49992c"
   },
   "features": {
     "app_home": {
@@ -26,7 +26,7 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
     },
     "bot_user": {
       "display_name": "Minecraft server",
-      "always_online": false
+      "always_online": true
     }
   },
   "oauth_config": {
@@ -60,6 +60,10 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
 !!! note "click `"Create"` to confirm"
     ![create_an_app_confirm](images/create_an_app_confirm.png)
 
+## Set App Icon (optional)
+!!! tip ""
+    ![minecraft_icon_for_slack_app](images/minecraft_icon_for_slack_app.png){ align=left width="200" }
+    Setting the AppIcon to this image will further improve the look of the post when updating the topic 🥴
 
 ## Get Oauth Token
 !!! note "click `"Install to Workspace"`"
@@ -70,7 +74,7 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
 paste to `SlackToken` in `config.yml`
 
 ## Get App-Level Token
-!!! note "click `"Generate Token and Scopes"`"
+!!! note "click `"Generate Token and Scopes"` from "Basic Information" section"
     ![generate_app_level_token](images/generate_app_level_token.png)
 
 !!! note "After setting the Name and Scopes as shown in the image, click the `"Generate"`"
@@ -92,5 +96,5 @@ paste to `SlackSocketToken` in `config.yml`
 paste to `SlackChannelId` in `config.yml`
 
 ## invite bot to Slack Channel
-!!! note "On the slack channel you want to connect to, type `/invite` and select `"Add apps to this channel"` add `SlackIntegration`."
+!!! note "On the slack channel you want to connect to, type `/invite` and select `"Add apps to this channel"` add `Minecraft server`."
     ![invite_bot_to_channel](images/invite_bot_to_channel.png)

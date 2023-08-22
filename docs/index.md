@@ -10,7 +10,8 @@
 [Issue Tracker](https://github.com/howyi/SlackIntegration/issues)  
 
 ## support
-minecraft: 1.20 ~  bukkit, spigot
+minecraft: 1.20 ~  
+bukkit, spigot
 
 ## features
 !!! note "chat sync (minecraft chat <-> slack channel)"
