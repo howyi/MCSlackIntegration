@@ -8,7 +8,7 @@ SlackChannelId: ""
 # If IconUrl is set, it will be used in preference to IconEmoji
 SlackBotName: "Minecraft server"
 SlackBotIconEmoji: ":pick:"
-SlackBotIconUrl: ""
+SlackBotIconUrl: "https://howyi.github.io/MCSlackIntegration/images/minecraft_icon.png"
 
 
 Message:
