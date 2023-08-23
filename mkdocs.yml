@@ -1,5 +1,8 @@
 site_name: Minecraft Slack Integration Plugin wiki
 
+repo_url: https://github.com/howyi/MCSlackIntegration
+edit_uri: edit/main/docs/
+
 nav:
   - Home: index.md
   - Installation:
@@ -9,8 +12,12 @@ nav:
 
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
   features:
     - navigation.expand
+    - content.action.edit
   palette:
     primary: black
     scheme: default

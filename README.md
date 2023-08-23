@@ -4,14 +4,18 @@
 </div>
 
 ## links
-[spigot](https://www.spigotmc.org/resources/slack-integration.112181/)  
-[Releases](https://github.com/howyi/SlackIntegration/releases)  
+[CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/slack-integration)  
+[modrinth](https://modrinth.com/plugin/slack-integration)   
+[SpigotMC](https://www.spigotmc.org/resources/slack-integration.112181/)  
+[Releases](https://github.com/howyi/SlackIntegration/releases)
+---
 [Source Code](https://github.com/howyi/SlackIntegration)  
 [Issue Tracker](https://github.com/howyi/SlackIntegration/issues)
+[Document](https://howyi.github.io/MCSlackIntegration/)
 
 ## support
 minecraft: 1.20 ~  
-bukkit, spigot
+bukkit, spigot, paper ...
 
 ## features
 
