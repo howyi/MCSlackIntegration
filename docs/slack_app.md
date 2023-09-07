@@ -12,49 +12,7 @@ create app at [https://api.slack.com/apps](https://api.slack.com/apps) by clicki
     ![enter_app_manifest](images/enter_app_manifest.png)
 
 ```json title="App Manifest"
-{
-  "display_information": {
-    "name": "Minecraft server",
-    "description": "with Slack Integration plugin",
-    "background_color": "#49992c"
-  },
-  "features": {
-    "app_home": {
-      "home_tab_enabled": true,
-      "messages_tab_enabled": false,
-      "messages_tab_read_only_enabled": true
-    },
-    "bot_user": {
-      "display_name": "Minecraft server",
-      "always_online": true
-    }
-  },
-  "oauth_config": {
-    "scopes": {
-      "bot": [
-        "channels:history",
-        "channels:write.topic",
-        "chat:write",
-        "chat:write.customize",
-        "users:read"
-      ]
-    }
-  },
-  "settings": {
-    "event_subscriptions": {
-      "bot_events": [
-        "app_home_opened",
-        "message.channels"
-      ]
-    },
-    "interactivity": {
-      "is_enabled": true
-    },
-    "org_deploy_enabled": false,
-    "socket_mode_enabled": true,
-    "token_rotation_enabled": false
-  }
-}
+--8<-- "./docs/app_manifest.json"
 ```
 
 !!! note "click `"Create"` to confirm"
