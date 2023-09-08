@@ -17,8 +17,9 @@ Console:
   SlackChannelId: ""
   # Allow execution of commands using /mcserver on console channel
   Executable: True
-  # Specifies the user names that can execute commands on the console channel (comma separated)
+  # Specifies the user full names that can execute commands on the console channel (comma separated)
   # ※If empty, all users can execute
+  # ex. steve,alex
   ExecutableSlackUserNames: ""
 
 # Synchronize minecraft and slack channel chats
