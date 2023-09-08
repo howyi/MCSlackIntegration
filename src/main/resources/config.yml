@@ -50,6 +50,11 @@ Message:
   # ex: hello from slack
   FromSlackChat: "#[{0}] {1}"
 
+ConsoleChannel:
+  Executable: True
+  ExecutableSlackUserNames: ""
+  SlackChannelId: ""
+
 # Display the online status of the server on the linked channel's topic
 StatusChannelTopic:
   Enabled: false

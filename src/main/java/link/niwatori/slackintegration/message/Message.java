@@ -1,10 +1,12 @@
 package link.niwatori.slackintegration.message;
 
+import com.slack.api.model.Attachment;
 import com.slack.api.model.block.LayoutBlock;
 import link.niwatori.slackintegration.ConfigKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Message {
@@ -29,7 +31,13 @@ public abstract class Message {
 
     public String getText() { return ""; }
 
-    abstract public List<LayoutBlock> getBlocks();
+    public List<LayoutBlock> getBlocks() {
+        return new ArrayList<>();
+    }
+
+    public List<Attachment> getAttachments() {
+        return new ArrayList<>();
+    };
 
     public static String getPlayerIconUrl(Player player) {
         return "https://mc-heads.net/avatar/" + player.getPlayerProfile().getUniqueId();

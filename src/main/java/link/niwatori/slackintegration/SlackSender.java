@@ -32,12 +32,17 @@ public class SlackSender {
     }
 
     public void sendMessage(Message message) {
+        this.sendMessage(message, this.channel);
+    }
+
+    public void sendMessage(Message message, String channel) {
         try {
             ChatPostMessageRequestBuilder requestBuilder = ChatPostMessageRequest.builder()
-                    .channel(this.channel)
+                    .channel(channel)
                     .username(message.getUsername())
                     .text(message.getText())
-                    .blocks(message.getBlocks());
+                    .blocks(message.getBlocks())
+                    .attachments(message.getAttachments());
             if (!Objects.equals(message.getIconUrl(), "")) {
                 requestBuilder.iconUrl(message.getIconUrl());
             } else if (!Objects.equals(message.getIconEmoji(), "")) {

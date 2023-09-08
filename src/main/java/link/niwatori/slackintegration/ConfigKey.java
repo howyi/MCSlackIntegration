@@ -20,7 +20,10 @@ public enum ConfigKey {
     SLACK_CHANNEL_TOPIC_ONLINE("StatusChannelTopic.Online"),
     SLACK_CHANNEL_TOPIC_OFFLINE("StatusChannelTopic.Offline"),
     APP_HOME_ONLINE_USER_COUNT("AppHome.OnlineUserCount"),
-    APP_HOME_ONLINE_USER_LIST("AppHome.OnlineUserList");
+    APP_HOME_ONLINE_USER_LIST("AppHome.OnlineUserList"),
+    CONSOLE_CHANNEL_EXECUTABLE("ConsoleChannel.Executable"),
+    CONSOLE_CHANNEL_EXECUTABLE_SLACK_USER_NAMES("ConsoleChannel.ExecutableSlackUserNames"),
+    CONSOLE_CHANNEL_SLACK_CHANNEL_ID("ConsoleChannel.SlackChannelId");
 
     private final String key;
 

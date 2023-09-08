@@ -3,6 +3,7 @@ package link.niwatori.slackintegration;
 import link.niwatori.slackintegration.message.Info;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.apache.logging.log4j.LogManager;
 
 import java.text.MessageFormat;
 import java.util.Objects;
@@ -47,7 +48,10 @@ public final class SlackIntegration extends JavaPlugin {
         }
 
         this.slackEventListener = new SlackEventListener(this.config, this.sender);
-        this.slackEventListener.connect();
+        this.slackEventListener.connect(this);
+
+        LogAppender appender = new LogAppender(this.sender, this.config);
+        logger.addAppender(appender);
     }
 
     @Override
@@ -73,4 +77,6 @@ public final class SlackIntegration extends JavaPlugin {
             this.sender.sendMessage(message);
         };
     }
+
+    private static final org.apache.logging.log4j.core.Logger logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
 }

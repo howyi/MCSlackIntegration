@@ -1,9 +1,9 @@
 package link.niwatori.slackintegration;
 
+import com.slack.api.app_backend.slash_commands.response.SlashCommandResponse;
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.AppConfig;
 import com.slack.api.bolt.socket_mode.SocketModeApp;
-import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
@@ -18,6 +18,7 @@ import com.slack.api.model.view.View;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,7 +41,7 @@ public class SlackEventListener {
         this.sender = sender;
     }
 
-    public void connect() {
+    public void connect(SlackIntegration plugin) {
         String appToken = config.getString(ConfigKey.SLACK_SOCKET_TOKEN.getKey(), "");
 
         String botToken = config.getString(ConfigKey.SLACK_TOKEN.getKey(), "");
@@ -81,6 +82,34 @@ public class SlackEventListener {
         app.event(MessageBotEvent.class, (payload, ctx) -> ctx.ack());
         app.event(MessageChangedEvent.class, (payload, ctx) -> ctx.ack());
         app.event(MessageThreadBroadcastEvent.class, (payload, ctx) -> ctx.ack());
+
+        app.command("/mcserver", (req, ctx) -> {
+            boolean executable = config.getBoolean(ConfigKey.CONSOLE_CHANNEL_EXECUTABLE.getKey(), false);
+            if (!executable) {
+                return ctx.ack("mcserver command is not allowed");
+            }
+            String channelId = req.getPayload().getChannelId();
+            String allowChannelId = config.getString(ConfigKey.CONSOLE_CHANNEL_SLACK_CHANNEL_ID.getKey(), "");
+            if (!channelId.equals(allowChannelId)) {
+                return ctx.ack("mcserver command is not allowed in this channel");
+            }
+
+            String userName = req.getPayload().getUserName();
+            String allowUserNamesConfig = config.getString(ConfigKey.CONSOLE_CHANNEL_EXECUTABLE_SLACK_USER_NAMES.getKey(), "");
+            if (!allowUserNamesConfig.equals("")) {
+                String[] allowUserNames = allowUserNamesConfig.split(",");
+                if (!Arrays.asList(allowUserNames).contains(userName)) {
+                    return ctx.ack("mcserver command is not allowed user");
+                }
+            }
+
+            String value = req.getPayload().getText();
+            Bukkit.getServer().getScheduler().callSyncMethod(plugin, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), value));
+
+            SlashCommandResponse.SlashCommandResponseBuilder builder =  SlashCommandResponse.builder();
+            builder.responseType("in_channel");
+            return ctx.ack(builder.build());
+        });
 
         try {
             this.socketModeApp = new SocketModeApp(appToken, app);
