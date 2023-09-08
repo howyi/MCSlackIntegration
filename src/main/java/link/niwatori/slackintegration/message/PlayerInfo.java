@@ -4,7 +4,7 @@ import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
 import com.slack.api.model.block.element.ImageElement;
-import org.bukkit.configuration.file.FileConfiguration;
+import link.niwatori.slackintegration.Config;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class PlayerInfo extends Message {
     private final String message;
 
     public PlayerInfo(
-            FileConfiguration config,
+            Config config,
             Player player,
             String format
     ) {

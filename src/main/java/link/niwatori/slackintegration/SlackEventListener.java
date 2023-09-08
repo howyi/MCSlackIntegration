@@ -12,7 +12,6 @@ import com.slack.api.model.block.element.ImageElement;
 import com.slack.api.model.event.*;
 import link.niwatori.slackintegration.message.Message;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import com.slack.api.model.view.View;
 
 import java.io.IOException;
@@ -30,11 +29,11 @@ import org.bukkit.entity.Player;
 
 public class SlackEventListener {
     SlackSender sender;
-    FileConfiguration config;
+    Config config;
     SocketModeApp socketModeApp;
 
     public SlackEventListener(
-            FileConfiguration config,
+            Config config,
             SlackSender sender
         ) {
         this.config = config;
@@ -42,10 +41,7 @@ public class SlackEventListener {
     }
 
     public void connect(SlackIntegration plugin) {
-        String appToken = config.getString(ConfigKey.SLACK_SOCKET_TOKEN.getKey(), "");
-
-        String botToken = config.getString(ConfigKey.SLACK_TOKEN.getKey(), "");
-        AppConfig appConfig = AppConfig.builder().singleTeamBotToken(botToken).build();
+        AppConfig appConfig = AppConfig.builder().singleTeamBotToken(this.config.slackToken()).build();
         App app = new App(appConfig);
 
         app.event(MessageEvent.class, (payload, ctx) -> {
@@ -84,21 +80,16 @@ public class SlackEventListener {
         app.event(MessageThreadBroadcastEvent.class, (payload, ctx) -> ctx.ack());
 
         app.command("/mcserver", (req, ctx) -> {
-            boolean executable = config.getBoolean(ConfigKey.CONSOLE_CHANNEL_EXECUTABLE.getKey(), false);
-            if (!executable) {
+            if (!this.config.consoleExecutable()) {
                 return ctx.ack("mcserver command is not allowed");
             }
             String channelId = req.getPayload().getChannelId();
-            String allowChannelId = config.getString(ConfigKey.CONSOLE_CHANNEL_SLACK_CHANNEL_ID.getKey(), "");
-            if (!channelId.equals(allowChannelId)) {
+            if (!channelId.equals(this.config.consoleSlackChannelId())) {
                 return ctx.ack("mcserver command is not allowed in this channel");
             }
-
-            String userName = req.getPayload().getUserName();
-            String allowUserNamesConfig = config.getString(ConfigKey.CONSOLE_CHANNEL_EXECUTABLE_SLACK_USER_NAMES.getKey(), "");
-            if (!allowUserNamesConfig.equals("")) {
-                String[] allowUserNames = allowUserNamesConfig.split(",");
-                if (!Arrays.asList(allowUserNames).contains(userName)) {
+            if (!this.config.consoleExecutableAllUser()) {
+                String userName = req.getPayload().getUserName();
+                if (!Arrays.asList(this.config.consoleExecutableSlackUserNames()).contains(userName)) {
                     return ctx.ack("mcserver command is not allowed user");
                 }
             }
@@ -112,7 +103,7 @@ public class SlackEventListener {
         });
 
         try {
-            this.socketModeApp = new SocketModeApp(appToken, app);
+            this.socketModeApp = new SocketModeApp(this.config.slackSocketToken(), app);
             this.socketModeApp.startAsync();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -127,10 +118,10 @@ public class SlackEventListener {
         if (Objects.equals(event.getText(), "")) {
             return;
         }
-        if (!config.getString(ConfigKey.SLACK_CHANNEL_ID.getKey(), "").equals(event.getChannel())) {
+        if (!this.config.chatSyncMessageFromSlackChatEnabled()) {
             return;
         }
-        if (config.getString(ConfigKey.MESSAGE_FROM_SLACK_CHAT.getKey(), "").equals("")) {
+        if (!this.config.chatSyncSlackChannelId().equals(event.getChannel())) {
             return;
         }
         String name = this.sender.getUserName(event.getUser());
@@ -138,7 +129,7 @@ public class SlackEventListener {
             return;
         }
         String message = MessageFormat.format(
-                config.getString(ConfigKey.MESSAGE_FROM_SLACK_CHAT.getKey(), ""),
+                this.config.chatSyncMessageFromSlackChat(),
                 name,
                 event.getText()
         );
@@ -148,14 +139,11 @@ public class SlackEventListener {
     public View onHomeOpen(AppHomeOpenedEvent event) throws SlackApiException, IOException {
         List<LayoutBlock> blocks = new ArrayList<>();
 
-        String onlineUserCount = config.getString(ConfigKey.APP_HOME_ONLINE_USER_COUNT.getKey(), "");
-        if (!onlineUserCount.equals("")) {
-            String text = MessageFormat.format(onlineUserCount, Bukkit.getOnlinePlayers().size(), Bukkit.getServer().getMaxPlayers());
+        if (this.config.appHomeOnlineUserCountEnabled()) {
+            String text = MessageFormat.format(this.config.appHomeOnlineUserCount(), Bukkit.getOnlinePlayers().size(), Bukkit.getServer().getMaxPlayers());
             blocks.add(section(section -> section.text(markdownText(mt -> mt.text(text)))));
         }
-
-        boolean onlineUserList = config.getBoolean(ConfigKey.APP_HOME_ONLINE_USER_LIST.getKey(), true);
-        if (onlineUserList) {
+        if (this.config.appHomeOnlineUserList()) {
             blocks.add(divider());
             blocks.add(section(section -> section.text(markdownText(mt -> mt.text("users")))));
             for (Player player : Bukkit.getOnlinePlayers()) {

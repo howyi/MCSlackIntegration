@@ -3,8 +3,7 @@ package link.niwatori.slackintegration.message;
 import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.BlockCompositions;
-import link.niwatori.slackintegration.ConfigKey;
-import org.bukkit.configuration.file.FileConfiguration;
+import link.niwatori.slackintegration.Config;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.text.MessageFormat;
@@ -14,7 +13,7 @@ public class InGameChat extends Message {
     private final AsyncPlayerChatEvent event;
 
     public InGameChat(
-            FileConfiguration config,
+            Config config,
             AsyncPlayerChatEvent event
     ) {
         super(config);
@@ -28,7 +27,7 @@ public class InGameChat extends Message {
 
     @Override
     public String getUsername() {
-        String nameFormat = config.getString("Message.PlayerChatName", "{0}");
+        String nameFormat = config.chatSyncMessagePlayerChatName();
         return MessageFormat.format(nameFormat, event.getPlayer().getDisplayName());
     }
 
@@ -39,10 +38,9 @@ public class InGameChat extends Message {
 
     @Override
     public List<LayoutBlock> getBlocks() {
-        String messageFormat = config.getString(ConfigKey.MESSAGE_PLAYER_CHAT.getKey(), "{0}");
         return Blocks.asBlocks(
                 Blocks.section(section -> section.text(BlockCompositions.plainText(
-                        MessageFormat.format(messageFormat, this.getText())
+                        MessageFormat.format(this.config.chatSyncMessagePlayerChat(), this.getText())
                 )))
         );
     }

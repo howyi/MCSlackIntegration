@@ -2,8 +2,8 @@ package link.niwatori.slackintegration.message;
 
 import com.slack.api.model.Attachment;
 import com.slack.api.model.Attachments;
+import link.niwatori.slackintegration.Config;
 import org.apache.logging.log4j.Level;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class Log extends Message {
     private final Level logLevel;
 
     public Log(
-            FileConfiguration config,
+            Config config,
             String message,
             Level logLevel
     ) {
