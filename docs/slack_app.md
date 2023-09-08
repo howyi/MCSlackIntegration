@@ -45,13 +45,15 @@ paste to `SlackSocketToken` in `config.yml`
 
 ## Get Channel Id
 
+!!! tip "It is recommended to set up separate channels for ChatSync and ConsoleChannel"
+
 !!! note "In slack, right-click on the channel you want to connect and select `"View Channnel Details"`"
     ![slack_channel_details](images/slack_channel_details.png)
 
 !!! note "copy the channel ID as they are listed at the bottom of the `"about"` tab."
     ![get_slack_channel_id](images/get_slack_channel_id.png)
 
-paste to `SlackChannelId` in `config.yml`
+paste to `ChatSync.SlackChannelId` or `Console.SlackChannelId` in `config.yml`
 
 ## invite bot to Slack Channel
 !!! note "On the slack channel you want to connect to, type `/invite` and select `"Add apps to this channel"` add `Minecraft server`."

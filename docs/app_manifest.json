@@ -13,7 +13,15 @@
     "bot_user": {
       "display_name": "Minecraft server",
       "always_online": true
-    }
+    },
+    "slash_commands": [
+      {
+        "command": "/mcserver",
+        "description": "minecraft server command",
+        "usage_hint": "time set day",
+        "should_escape": false
+      }
+    ]
   },
   "oauth_config": {
     "scopes": {
@@ -22,7 +30,8 @@
         "channels:write.topic",
         "chat:write",
         "chat:write.customize",
-        "users:read"
+        "users:read",
+        "commands"
       ]
     }
   },

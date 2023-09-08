@@ -4,6 +4,7 @@ import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.MarkdownTextObject;
 import com.slack.api.model.block.element.ImageElement;
+import link.niwatori.slackintegration.Config;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -14,7 +15,7 @@ public class Info extends Message {
     private final String message;
 
     public Info(
-            FileConfiguration config,
+            Config config,
             String message
     ) {
         super(config);

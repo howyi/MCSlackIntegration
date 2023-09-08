@@ -17,10 +17,10 @@ import java.util.Objects;
 
 public class MessageListener implements Listener {
     SlackSender sender;
-    FileConfiguration config;
+    Config config;
 
     public MessageListener(
-            FileConfiguration config,
+            Config config,
             SlackSender sender
         ) {
         this.config = config;
@@ -29,46 +29,50 @@ public class MessageListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
-        if (!Objects.equals(this.config.getString(ConfigKey.MESSAGE_PLAYER_CHAT.getKey()), "")) {
+        if (this.config.chatSyncEnabled() && this.config.chatSyncMessagePlayerChatEnabled()) {
             InGameChat message = new InGameChat(this.config, event);
-            this.sender.sendMessage(message);
+            this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
-        if (config.getBoolean(ConfigKey.SLACK_CHANNEL_TOPIC_ENABLED.getKey())) {
-            String topic = MessageFormat.format(config.getString(ConfigKey.SLACK_CHANNEL_TOPIC_ONLINE.getKey(), ""), Bukkit.getOnlinePlayers().size());
-            this.sender.setTopic(topic);
-        }
+        if (this.config.chatSyncEnabled()) {
+            if (this.config.chatSyncSlackChannelTopicEnabled()) {
+                String topic = MessageFormat.format(this.config.chatSyncSlackChannelTopicOnline(), Bukkit.getOnlinePlayers().size());
+                this.sender.setTopic(topic, this.config.chatSyncSlackChannelId());
+            }
 
-        if (!Objects.equals(this.config.getString(ConfigKey.MESSAGE_PLAYER_JOIN.getKey()), "")) {
-            String text = MessageFormat.format(this.config.getString(ConfigKey.MESSAGE_PLAYER_JOIN.getKey(), ""), event.getPlayer().getDisplayName());
-            PlayerInfo message = new PlayerInfo(this.config, event.getPlayer(), text);
-            this.sender.sendMessage(message);
+            if (this.config.chatSyncMessagePlayerJoinEnabled()) {
+                String text = MessageFormat.format(this.config.chatSyncMessagePlayerJoin(), event.getPlayer().getDisplayName());
+                PlayerInfo message = new PlayerInfo(this.config, event.getPlayer(), text);
+                this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
+            }
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
-        if (!Objects.equals(this.config.getString(ConfigKey.MESSAGE_PLAYER_QUIT.getKey()), "")) {
-            String text = MessageFormat.format(this.config.getString(ConfigKey.MESSAGE_PLAYER_QUIT.getKey(), ""), event.getPlayer().getDisplayName());
-            PlayerInfo message = new PlayerInfo(this.config, event.getPlayer(), text);
-            this.sender.sendMessage(message);
-        }
+        if (this.config.chatSyncEnabled()) {
+            if (this.config.chatSyncMessagePlayerQuitEnabled()) {
+                String text = MessageFormat.format(this.config.chatSyncMessagePlayerQuit(), event.getPlayer().getDisplayName());
+                PlayerInfo message = new PlayerInfo(this.config, event.getPlayer(), text);
+                this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
+            }
 
-        if (config.getBoolean(ConfigKey.SLACK_CHANNEL_TOPIC_ENABLED.getKey())) {
-            String topic = MessageFormat.format(config.getString(ConfigKey.SLACK_CHANNEL_TOPIC_ONLINE.getKey(), ""), Bukkit.getOnlinePlayers().size() - 1);
-            this.sender.setTopic(topic);
+            if (this.config.chatSyncSlackChannelTopicEnabled()) {
+                String topic = MessageFormat.format(this.config.chatSyncSlackChannelTopicOnline(), Bukkit.getOnlinePlayers().size() - 1);
+                this.sender.setTopic(topic, this.config.chatSyncSlackChannelId());
+            }
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
-        if (!Objects.equals(this.config.getString(ConfigKey.MESSAGE_PLAYER_DEATH.getKey()), "")) {
-            String text = MessageFormat.format(this.config.getString(ConfigKey.MESSAGE_PLAYER_DEATH.getKey(), ""), event.getDeathMessage());
+        if (this.config.chatSyncEnabled() && this.config.chatSyncMessagePlayerDeathEnabled()) {
+            String text = MessageFormat.format(this.config.chatSyncMessagePlayerDeath(), event.getDeathMessage());
             PlayerInfo message = new PlayerInfo(this.config, event.getEntity().getPlayer(), text);
-            this.sender.sendMessage(message);
+            this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
         }
     }
 }

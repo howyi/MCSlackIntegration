@@ -1,8 +1,9 @@
+Version: 2
+
 # slack app parameters
 # read the plugin document: https://howyi.github.io/SlackIntegration/
 SlackToken: ""
 SlackSocketToken: ""
-SlackChannelId: ""
 
 # Username settings for posting info messages to slack
 # If IconUrl is set, it will be used in preference to IconEmoji
@@ -10,55 +11,67 @@ SlackBotName: "Minecraft server"
 SlackBotIconEmoji: ":pick:"
 SlackBotIconUrl: "https://howyi.github.io/MCSlackIntegration/images/minecraft_icon.png"
 
+# Server logs to Slack channel and executes commands
+Console:
+  # ※Disable Console function if empty.
+  SlackChannelId: ""
+  # Allow execution of commands using /mcserver on console channel
+  Executable: True
+  # Specifies the user names that can execute commands on the console channel (comma separated)
+  # ※If empty, all users can execute
+  ExecutableSlackUserNames: ""
 
-Message:
-  # slack post message on server start
-  # ※Do not post if empty
-  ServerStart: "server start"
-  # slack post message on server end
-  # ※Do not post if empty
-  ServerEnd: "server end"
-  # slack post message on player join
-  # ※Do not post if empty
-  # {0}: joined player name
-  # ex. hoyash
-  PlayerJoin: "{0} joined the game"
-  # slack post message on player leave
-  # ※Do not post if empty
-  # {0}: left player name
-  # ex. hoyash
-  PlayerQuit: "{0} left the game"
-  # slack post message on player dead
-  # ※Do not post if empty
-  # {0}: death message
-  # ex. hoyash was shot by Skeleton
-  PlayerDeath: "{0}"
-  # slack post message on player chat
-  # ※Do not post if empty
-  # {0}: minecraft player chat text
-  # ec: hello
-  PlayerChat: "{0}"
-  # slack post username on player chat
-  # {0}: minecraft player name
-  # ec: hello
-  PlayerChatName: "{0}"
-  # Format for chatting posts on connected slack channels to minecraft
-  # ※Do not post if empty
-  # {0}: Slack username
-  # ex. t-hayashi
-  # {1}: Slack post text
-  # ex: hello from slack
-  FromSlackChat: "#[{0}] {1}"
-
-# Display the online status of the server on the linked channel's topic
-StatusChannelTopic:
-  Enabled: false
-  # Topic text during server online
-  # {0}: Online Player count
-  # ex. 1
-  Online: "🟢 online: {0}"
-  # Topic text during server offline
-  Offline: "🔴 offline"
+# Synchronize minecraft and slack channel chats
+ChatSync:
+  # ※Disable Chat Sync function if empty.
+  SlackChannelId: ""
+  Message:
+    # slack post message on server start
+    # ※Do not post if empty
+    ServerStart: "server start"
+    # slack post message on server end
+    # ※Do not post if empty
+    ServerEnd: "server end"
+    # slack post message on player join
+    # ※Do not post if empty
+    # {0}: joined player name
+    # ex. hoyash
+    PlayerJoin: "{0} joined the game"
+    # slack post message on player leave
+    # ※Do not post if empty
+    # {0}: left player name
+    # ex. hoyash
+    PlayerQuit: "{0} left the game"
+    # slack post message on player dead
+    # ※Do not post if empty
+    # {0}: death message
+    # ex. hoyash was shot by Skeleton
+    PlayerDeath: "{0}"
+    # slack post message on player chat
+    # ※Do not post if empty
+    # {0}: minecraft player chat text
+    # ec: hello
+    PlayerChat: "{0}"
+    # slack post username on player chat
+    # {0}: minecraft player name
+    # ec: hello
+    PlayerChatName: "{0}"
+    # Format for chatting posts on connected slack channels to minecraft
+    # ※Do not post if empty
+    # {0}: Slack username
+    # ex. t-hayashi
+    # {1}: Slack post text
+    # ex: hello from slack
+    FromSlackChat: "#[{0}] {1}"
+  # Display the online status of the server on the linked channel's topic
+  StatusChannelTopic:
+    Enabled: false
+    # Topic text during server online
+    # {0}: Online Player count
+    # ex. 1
+    Online: "🟢 online: {0}"
+    # Topic text during server offline
+    Offline: "🔴 offline"
 
 # Information to be displayed in Slack's App Home
 AppHome:

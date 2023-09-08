@@ -1,53 +1,59 @@
 package link.niwatori.slackintegration;
 
 import link.niwatori.slackintegration.message.Info;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.apache.logging.log4j.LogManager;
 
 import java.text.MessageFormat;
-import java.util.Objects;
 import java.util.logging.Level;
 
 public final class SlackIntegration extends JavaPlugin {
 
     SlackSender sender;
     SlackEventListener slackEventListener;
-    FileConfiguration config;
+    Config config;
+
+    int CURRENT_CONFIG_VERSION = 2;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
-        this.config = getConfig();
+        this.config = new Config(getConfig());
 
-        String slackToken = config.getString(ConfigKey.SLACK_TOKEN.getKey());
-        String slackSocketToken = config.getString(ConfigKey.SLACK_SOCKET_TOKEN.getKey());
-        String slackChannelId = config.getString(ConfigKey.SLACK_CHANNEL_ID.getKey());
+        if (this.config.version() != CURRENT_CONFIG_VERSION) {
+            this.getLogger().log(Level.WARNING, "The version of the configuration file is out of date. Please see the documentation (https://howyi.github.io/MCSlackIntegration/config/) to update it to the latest format.");
+            return;
+        }
 
-        if (Objects.equals(slackToken, "") || Objects.equals(slackSocketToken, "") || Objects.equals(slackChannelId, "")) {
+        if (!this.config.validateSlackConfig()) {
             this.getLogger().log(Level.WARNING, "Slack app parameters not defined in config.yml");
             return;
         }
 
-        this.sender = new SlackSender(
-                config.getString(ConfigKey.SLACK_TOKEN.getKey()),
-                config.getString(ConfigKey.SLACK_CHANNEL_ID.getKey())
-        );
+        this.sender = new SlackSender(this.config.slackToken());
+
+        // minecraft -> server
         getServer().getPluginManager().registerEvents(new MessageListener(this.config, this.sender), this);
 
-        if (config.getBoolean(ConfigKey.SLACK_CHANNEL_TOPIC_ENABLED.getKey())) {
-            String topic = MessageFormat.format(config.getString(ConfigKey.SLACK_CHANNEL_TOPIC_ONLINE.getKey(), ""), 0);
-            this.sender.setTopic(topic);
-        }
-
-        String serverStartMessage = config.getString(ConfigKey.MESSAGE_SERVER_START.getKey());
-        if (!Objects.equals(serverStartMessage, "")) {
-            Info message = new Info(this.config, serverStartMessage);
-            this.sender.sendMessage(message);
-        }
-
+        // slack -> server
         this.slackEventListener = new SlackEventListener(this.config, this.sender);
-        this.slackEventListener.connect();
+        this.slackEventListener.connect(this);
+
+        // minecraft log -> server
+        LogAppender appender = new LogAppender(this.sender, this.config);
+        logger.addAppender(appender);
+
+        if (config.chatSyncEnabled()) {
+            if (config.chatSyncSlackChannelTopicEnabled()) {
+                String topic = MessageFormat.format(config.chatSyncSlackChannelTopicOnline(), 0);
+                this.sender.setTopic(topic, config.chatSyncSlackChannelId());
+            }
+            if (this.config.chatSyncMessageServerStartEnabled()) {
+                Info message = new Info(this.config, this.config.chatSyncMessageServerStart());
+                this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
+            }
+        }
     }
 
     @Override
@@ -61,16 +67,16 @@ public final class SlackIntegration extends JavaPlugin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Plugin shutdown logic
-        if (config.getBoolean(ConfigKey.SLACK_CHANNEL_TOPIC_ENABLED.getKey())) {
-            this.sender.setTopic(config.getString(ConfigKey.SLACK_CHANNEL_TOPIC_OFFLINE.getKey()));
+        if (config.chatSyncEnabled()) {
+            if (this.config.chatSyncSlackChannelTopicEnabled()) {
+                this.sender.setTopic(config.chatSyncSlackChannelTopicOffline(), config.chatSyncSlackChannelId());
+            }
+            if (this.config.chatSyncMessageServerEndEnabled()) {
+                Info message = new Info(this.config, this.config.chatSyncMessageServerEnd());
+                this.sender.sendMessage(message, this.config.chatSyncSlackChannelId());
+            };
         }
-
-        String serverEndMessage = config.getString(ConfigKey.MESSAGE_SERVER_END.getKey());
-        if (!Objects.equals(serverEndMessage, "")) {
-            Info message = new Info(this.config, serverEndMessage);
-            this.sender.sendMessage(message);
-        };
     }
+
+    private static final org.apache.logging.log4j.core.Logger logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
 }

@@ -6,13 +6,9 @@ import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest.ChatPostMessageRequestBuilder;
 import com.slack.api.methods.request.conversations.ConversationsSetTopicRequest;
 import com.slack.api.methods.request.users.UsersInfoRequest;
-import com.slack.api.methods.request.users.profile.UsersProfileSetRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.methods.response.conversations.ConversationsSetTopicResponse;
-import com.slack.api.methods.response.reactions.ReactionsListResponse;
 import com.slack.api.methods.response.users.UsersInfoResponse;
-import com.slack.api.methods.response.users.profile.UsersProfileSetResponse;
-import com.slack.api.model.User;
 import link.niwatori.slackintegration.message.Message;
 
 import java.io.IOException;
@@ -23,21 +19,23 @@ import com.slack.api.Slack;
 public class SlackSender {
 
     private final MethodsClient client;
-    private final String channel;
 
-    public SlackSender(String token, String channel) {
+    public SlackSender(String token) {
         Slack slack = Slack.getInstance();
         this.client = slack.methods(token);
-        this.channel = channel;
     }
 
-    public void sendMessage(Message message) {
+    public void sendMessage(Message message, String channel) {
+        if (Objects.equals(channel, "")) {
+            return;
+        }
         try {
             ChatPostMessageRequestBuilder requestBuilder = ChatPostMessageRequest.builder()
-                    .channel(this.channel)
+                    .channel(channel)
                     .username(message.getUsername())
                     .text(message.getText())
-                    .blocks(message.getBlocks());
+                    .blocks(message.getBlocks())
+                    .attachments(message.getAttachments());
             if (!Objects.equals(message.getIconUrl(), "")) {
                 requestBuilder.iconUrl(message.getIconUrl());
             } else if (!Objects.equals(message.getIconEmoji(), "")) {
@@ -49,10 +47,13 @@ public class SlackSender {
         }
     }
 
-    public void setTopic(String topic) {
+    public void setTopic(String topic, String channel) {
+        if (Objects.equals(channel, "")) {
+            return;
+        }
         try {
             ConversationsSetTopicRequest request = ConversationsSetTopicRequest.builder()
-                    .channel(this.channel)
+                    .channel(channel)
                     .topic(topic)
                     .build();
             ConversationsSetTopicResponse response = this.client.conversationsSetTopic(request);
