@@ -78,6 +78,10 @@ public class SlackEventListener {
         app.event(MessageBotEvent.class, (payload, ctx) -> ctx.ack());
         app.event(MessageChangedEvent.class, (payload, ctx) -> ctx.ack());
         app.event(MessageThreadBroadcastEvent.class, (payload, ctx) -> ctx.ack());
+        app.event(MessageChannelJoinEvent.class, (payload, ctx) -> ctx.ack());
+        app.event(MessageChannelLeaveEvent.class, (payload, ctx) -> ctx.ack());
+        app.event(MessageFileShareEvent.class, (payload, ctx) -> ctx.ack());
+        app.event(MessageSlackbotResponseEvent.class, (payload, ctx) -> ctx.ack());
 
         app.command("/mcserver", (req, ctx) -> {
             if (!this.config.consoleExecutable()) {
