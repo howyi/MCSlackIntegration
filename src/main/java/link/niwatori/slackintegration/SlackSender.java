@@ -6,12 +6,16 @@ import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest.ChatPostMessageRequestBuilder;
 import com.slack.api.methods.request.conversations.ConversationsSetTopicRequest;
 import com.slack.api.methods.request.users.UsersInfoRequest;
+import com.slack.api.methods.request.users.UsersListRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.methods.response.conversations.ConversationsSetTopicResponse;
 import com.slack.api.methods.response.users.UsersInfoResponse;
+import com.slack.api.methods.response.users.UsersListResponse;
+import com.slack.api.model.User;
 import link.niwatori.slackintegration.message.Message;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import com.slack.api.Slack;
@@ -69,6 +73,17 @@ public class SlackSender {
                     .build();
             UsersInfoResponse response = this.client.usersInfo(request);
             return response.getUser().getProfile().getDisplayNameNormalized();
+        } catch (IOException | SlackApiException e) {
+            throw e;
+        }
+    }
+
+    public List<User> getUsers() throws SlackApiException, IOException {
+        try {
+            UsersListRequest request = UsersListRequest.builder()
+                    .build();
+            UsersListResponse response = this.client.usersList(request);
+            return response.getMembers();
         } catch (IOException | SlackApiException e) {
             throw e;
         }

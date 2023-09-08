@@ -90,6 +90,12 @@ public class Config {
     public String chatSyncMessagePlayerChatName() {
         return this.fileConfiguration.getString("ChatSync.Message.PlayerChatName", "");
     }
+    public boolean chatSyncMessageSlackMentionEnabled() {
+        return !Objects.equals(this.chatSyncMessageSlackMentionPrefix(), "");
+    }
+    public String chatSyncMessageSlackMentionPrefix() {
+        return this.fileConfiguration.getString("ChatSync.Message.SlackMentionPrefix", "");
+    }
     public boolean chatSyncSlackChannelTopicEnabled() {
         return this.fileConfiguration.getBoolean("ChatSync.StatusChannelTopic.Enabled", false);
     }

@@ -57,6 +57,9 @@ ChatSync:
     # {0}: minecraft player name
     # ec: hello
     PlayerChatName: "{0}"
+    # Prefix for mentions from minecraft to slack
+    # ※Do not mentions if empty
+    SlackMentionPrefix: "#@"
     # Format for chatting posts on connected slack channels to minecraft
     # ※Do not post if empty
     # {0}: Slack username
