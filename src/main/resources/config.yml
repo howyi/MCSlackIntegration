@@ -1,8 +1,9 @@
+Version: 1
+
 # slack app parameters
 # read the plugin document: https://howyi.github.io/SlackIntegration/
 SlackToken: ""
 SlackSocketToken: ""
-SlackChannelId: ""
 
 # Username settings for posting info messages to slack
 # If IconUrl is set, it will be used in preference to IconEmoji

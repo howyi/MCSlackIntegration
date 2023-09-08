@@ -2,6 +2,7 @@ package link.niwatori.slackintegration;
 
 public enum ConfigKey {
 
+    VERSION("Version"),
     SLACK_TOKEN("SlackToken"),
     SLACK_SOCKET_TOKEN("SlackSocketToken"),
     SLACK_BOT_NAME("SlackBotName"),

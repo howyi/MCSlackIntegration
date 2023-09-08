@@ -15,11 +15,19 @@ public final class SlackIntegration extends JavaPlugin {
     SlackEventListener slackEventListener;
     FileConfiguration config;
 
+    int CURRENT_CONFIG_VERSION = 1;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
         this.config = getConfig();
+
+        int configVersion = config.getInt(ConfigKey.VERSION.getKey(), 1);
+        if (configVersion != CURRENT_CONFIG_VERSION) {
+            this.getLogger().log(Level.WARNING, "The version of the configuration file is out of date. Please see the documentation (https://howyi.github.io/MCSlackIntegration/config/) to update it to the latest format.");
+            return;
+        }
 
         String slackToken = config.getString(ConfigKey.SLACK_TOKEN.getKey());
         String slackSocketToken = config.getString(ConfigKey.SLACK_SOCKET_TOKEN.getKey());
