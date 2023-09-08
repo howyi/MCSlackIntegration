@@ -30,6 +30,11 @@ events:
 - player join/quit
 - slack channel post message
 
+### Console Channel
+minecraft server log -> slack channel  
+slack command -> minecraft server command
+![console_channel](https://howyi.github.io/MCSlackIntegration/images/console_channel.png)
+
 ### Slack App Home
 minecraft online status to Slack App Home  
 ![app_home](https://howyi.github.io/MCSlackIntegration/images/app_home.png)
