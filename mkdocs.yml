@@ -11,6 +11,9 @@ nav:
   - Update: update_plugin.md
   - Configs: config.md
 
+extra_css:
+  - stylesheets/extra.css
+
 theme:
   name: material
   icon:
