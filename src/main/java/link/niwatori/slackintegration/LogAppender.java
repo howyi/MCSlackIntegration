@@ -3,7 +3,6 @@ package link.niwatori.slackintegration;
 import link.niwatori.slackintegration.message.Log;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
-import org.bukkit.ChatColor;
 
 import java.util.regex.Pattern;
 

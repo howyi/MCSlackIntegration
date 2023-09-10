@@ -8,6 +8,7 @@ nav:
   - Installation:
       - install_to_server.md
       - slack_app.md
+  - Update: update_plugin.md
   - Configs: config.md
 
 theme:
@@ -18,6 +19,7 @@ theme:
   features:
     - navigation.expand
     - content.action.edit
+    - content.code.copy
   palette:
     primary: black
     scheme: default
