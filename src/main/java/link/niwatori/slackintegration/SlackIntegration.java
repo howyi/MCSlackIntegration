@@ -22,7 +22,7 @@ public final class SlackIntegration extends JavaPlugin {
         this.config = new Config(getConfig());
 
         if (this.config.version() != CURRENT_CONFIG_VERSION) {
-            this.getLogger().log(Level.WARNING, "The version of the configuration file is out of date. Please see the documentation (https://howyi.github.io/MCSlackIntegration/config/) to update it to the latest format.");
+            this.getLogger().log(Level.WARNING, "The version of the configuration file is out of date. Please see the documentation (https://howyi.github.io/MCSlackIntegration/update_plugin/) to update it to the latest format.");
             return;
         }
 

@@ -29,6 +29,8 @@ events:
 - server start/stop
 - player join/quit
 - slack channel post message
+- slack mentions in minecraft(prefix: `#@`)
+  ![slack_mentions_in_minecraftg](https://howyi.github.io/MCSlackIntegration/images/slack_mentions_in_minecraft.png)
 
 ### Console Channel
 minecraft server log -> slack channel  

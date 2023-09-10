@@ -11,13 +11,16 @@ import java.util.List;
 
 public class InGameChat extends Message {
     private final AsyncPlayerChatEvent event;
+    private final String message;
 
     public InGameChat(
             Config config,
-            AsyncPlayerChatEvent event
+            AsyncPlayerChatEvent event,
+            String message
     ) {
         super(config);
         this.event = event;
+        this.message = message;
     }
 
     @Override
@@ -33,15 +36,6 @@ public class InGameChat extends Message {
 
     @Override
     public String getText() {
-        return this.event.getMessage();
-    }
-
-    @Override
-    public List<LayoutBlock> getBlocks() {
-        return Blocks.asBlocks(
-                Blocks.section(section -> section.text(BlockCompositions.plainText(
-                        MessageFormat.format(this.config.chatSyncMessagePlayerChat(), this.getText())
-                )))
-        );
+        return this.message;
     }
 }
